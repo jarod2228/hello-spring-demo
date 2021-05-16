@@ -41,12 +41,35 @@ public class HelloController {
     public String helloForm() {
         return "<html>" +
                 "<body>" +
-                "<form action='/hello' method='post'>" +  //submit a request to /hello
+                "<form action='/hello' method='get'>" +  //submit a request to /hello
                 "<input type='text' name='name'>" +
+                "<select name='languages id='languageOption'>" +
+                "<option value='english' selected='true'>English</option>" +
+                "<option value='french'>French</option>" +
+                "<option value=''spanish'>Spanish</option>" +
+                "<option value='chinese'>Chinese</option>" +
+                "<option value='japanese'>Japanese</option>" +
+                "</select>" +
                 "<input type='submit' value='Greet me!'>" +
                 "</form>" +
                 "</body>" +
                 "</html>";
+    }
+
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    public String createMessage(@RequestParam String name, String language) {
+        if (/*english selected*/) {
+            return "Hello, " + name + "!";
+        } else if (/*french selected*/) {
+            return "Bonjour, " + name + "!";
+        } else if (/*spanish selected*/) {
+            return "Hola, " + name + "!";
+        } else if (/*chinese selected*/) {
+            return "Ni hao, " + name + "!";
+        } else if (/*japanese selected*/) {
+            return "Kon'nichiwa, " + name + "!";
+        }
+
     }
 
 }
