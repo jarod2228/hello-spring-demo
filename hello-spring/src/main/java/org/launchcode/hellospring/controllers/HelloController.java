@@ -18,32 +18,24 @@ public class HelloController {
 //        return "Hello, Spring!";
 //    }
 
-    //lives at /hello/goodbye
-    @GetMapping("goodbye")
-    public String goodbye() {
-        return "goodbye, Spring!";
-    }
     //lives /hello/hello
     //Handler that handles requests of the form /hello?name=LaunchCode
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithQueryAndLanguageParam(@RequestParam String language, String name) {
-        return "Hello, " + name + "!";
-    }
+//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+//    public String helloWithQueryAndLanguageParam(@RequestParam String language, String name) {
+//        return "Hello, " + name + "!";
+//    }
 
     //Handles requests of the form /hello/LaunchCode
-    @GetMapping("{name}")
-    public String helloWithPathParam(@PathVariable String name) {
-        return "Hello, " + name + "!";
-
-    }
+//    @GetMapping("{name}")
+//    public String helloWithPathParam(@PathVariable String name) {
+//        return "Hello, " + name + "!";
+//    }
     //lives at /hello/form
-    @GetMapping("form")
+    @RequestMapping(method = RequestMethod.GET)
     public String helloForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action='/hello' method='get'>" +  //submit a request to /hello
+        return "<form method='post'>" +
                 "<input type='text' name='name'>" +
-                "<select name='languages id='languageOption'>" +
+                "<select name='language>" +
                 "<option value='english' selected='true'>English</option>" +
                 "<option value='french'>French</option>" +
                 "<option value=''spanish'>Spanish</option>" +
@@ -51,11 +43,29 @@ public class HelloController {
                 "<option value='japanese'>Japanese</option>" +
                 "</select>" +
                 "<input type='submit' value='Greet me!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+                "</form>";
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public String createMessage(@RequestParam String name, @RequestParam String language) {
+        if (name == null) {
+            name = "World";
+        }
+        String greeting = "";
+
+        if (language.equals("english")) {
+            greeting = "Hello";
+        } else if (language.equals("french")) {
+            greeting = "Bonjour";
+        } else if (language.equals("spanish")) {
+            greeting = "Hola";
+        } else if (language.equals("chinese")) {
+            greeting = "Ni hao";
+        } else if (language.equals("japanese")) {
+            greeting = "Kon'nichiwa";
+        }
+        return "<p style='color: red; text-align center; margin-top: 20vh; font-size: 20px'>"greeting + name;
+    }
 //    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
 //    public String createMessage(@RequestParam String name, String language) {
 //        if (/*english selected*/) {
@@ -71,5 +81,4 @@ public class HelloController {
 //        }
 //
 //    }
-
 }
